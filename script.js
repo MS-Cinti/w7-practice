@@ -7,7 +7,7 @@
 
 const currentDate = new Date() 
 
-console.log(currentDate);
+//console.log(currentDate);
 
 function Book(title, author, year, genre) {
     this.title = title;         //a this mindig egy objectumra mutat vissza
