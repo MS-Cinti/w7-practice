@@ -7,16 +7,39 @@ function Country(name, short, population, flag, continent) {
     this.continent = continent;
 }
 
+const menuButton = _ => { //nincs paraméter, így lehet alávonás
+    return `
+    <button id="menuButton">                                                          
+        <svg width="40" height="40">
+            <rect width="20" height="2"/>
+            <rect width="20" height="2"/>
+            <rect width="20" height="2"/>
+        </svg>
+    </button>
+    `;
+}
+
 //Components
-const header = (logo) => {
+const header = (logo, button) => {
     return `
     <header>
         <a id="logo">${logo}</a>
-        <button></button>
+        ${button()}
     </header>
     `
 }
 
+const countryCard = (name, short, population, flag, continent) => {
+    return`
+    <div id="card">
+        <h1>${name}</h1>
+        <p>${short}</p>
+        <p>population: ${population}</p>
+        <img src="${flag}" alt=""></img>
+        <p>continent: ${continent}</p>
+    </div>
+    `
+}
 
 const loadEvent = async _ => { 
 //Get data:
@@ -32,30 +55,21 @@ const loadEvent = async _ => {
     })
     console.log(countries);
 
-    let countryCard = countries;
+    let cards = ""
 
-    for (const countryCards of countryCard) {
-        root.insertAdjacentHTML("beforeend", `
-            <div id="card">
-                <h1>${countryCard.name.common}</h1>
-                <p>${countryCard.cca3}</p>
-                <p>${countryCard.population}</p>
-                <p>${countryCard.flags.svg}</p>
-                <p>${countryCard.continents[0]}</p>
-            </div>
-        `)
+    for (const country of countries){
+        cards += countryCard(country.name, country.short, country.population, country.flag, country.continent)
     }
 
-    const rootElement = document.getElementById("root");
-    //rootElement.insertAdjacentHTML("beforeend", header("Countries"));
+    const root = document.getElementById("root");
+    
+    root.insertAdjacentHTML(`beforeend`,header("Countries",menuButton))
+    root.insertAdjacentHTML(`beforeend`,cards)
+
+    const gotMenuButton = document.getElementById("menuButton");
+    gotMenuButton.addEventListener("click", (event) => {
+        event.target.classList.toggle("clicked");
+    });
 }
 
 window.addEventListener("load", loadEvent);
-
-
-//kártyaként megjeleníteni ezt a countryt
-//egy komponensbe mentsem el ezeket 
-//country cardsban egy db div, aminek card az id-je 
-//load eseményen belül adni hozzá a rootelemhez
-
-//16.15
