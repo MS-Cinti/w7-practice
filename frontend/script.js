@@ -1,61 +1,67 @@
-function loadEvent() {
-
-    let rootElement = document.getElementById("root");
-
-    let htmlBody = `
+const formHTML = () => {
+    return `
     <form>
-        <label for="fname">First name:</label><br>
-            <input type="text" id="input1" name="input1" value=""><br>
-        <label for="lname">Last name:</label><br>
-            <input type="text" id="input2" name="input2" value=""><br>
-        <label for="age">Age:</label><br>
-            <input type="text" id="input3" name="input3" value=""><br>
-    </form><br>
-    <select name="animals" id="animals">
-        <option value="5555">Both</option>
-        <option value="5555">Cats</option>
-        <option value="5555">Dogs</option>
-    </select>
-    <button>Click</button>
-    `
-    rootElement.insertAdjacentHTML("beforeend", htmlBody);
+        <input name="input1" id="input1" type="text" />
+        <input name="input2" id="input2" type="text" />
+        <input name="input3" id="input3" type="text" />
+        <select name="animals" id="animals">
+            <option value="both5555">Both</option>
+            <option value="cats5555">Cats</option>
+            <option value="dogs5555">Dogs</option>
+        </select>
+        <button>Send</button>
+    </form>
+    `;
+};
 
+function loadEvent() {
+    console.log("load");
+    const rootElement = document.getElementById("root")
+
+    rootElement.insertAdjacentHTML("beforeend", formHTML())
+
+    //belementjük a formot egy változóba
     const form = rootElement.querySelector("form")
 
-    //input eseményfigyelő
-    const inputList = document.querySelectorAll("input"); 
+    //input esemény
+    const inputList = document.querySelectorAll("input")
 
-    console.log(typeof inputList);
-    console.log(Array.isArray(inputList));
     /* 
     for (const input of inputList) {
-        input.addEventListener("input", function (event) {
-            console.log(event.target.value);
+        input.addEventListener("input", function(e) {                   ugyanaz mint a map pár sorral lejjebb
+            console.log(e.target.value);
         })
+    }
     }
     */
 
-    //.map() a for ciklus helyett:
-    //a map egy tömböt ad vissza, nem kell külön még egy tömb, megcsinálja nekünk
-    //áttekinthetőbb map-el dolgozni
-    Array.from(inputList).map(function(input) {   
-        
-        input.addEventListener("input", function (event) {
-            console.log(event.target.value);
+    Array.from(inputList).map(function(input){
+        input.addEventListener("input", function(e) {
+            console.log(e.target.value);
         })
     })
 
-    form.querySelector("select").addEventListener("input", function (e) {
-
+    
+    //select esemény 
+    form.querySelector("select").addEventListener("input", function(e){
         console.log(e.target.value);
     })
 
-    form.addEventListener("submit", function(e){
+
+    //sumbit esemény
+    form.addEventListener("submit", function(e){               //form a sor elején: már elmentettük egy változóba
         e.preventDefault()
         console.log(e.target);
     })
-}
+    
 
+}
 window.addEventListener("load", loadEvent);
+
+
+
+
+//formok esetében nem click event hanem submit event
+//sumbit eseményt NEM a gombra tesszük hanem a formra
 
 
