@@ -11,9 +11,16 @@ function loadEvent() {
         <label for="age">Age:</label><br>
             <input type="text" id="input3" name="input3" value=""><br>
     </form><br>
+    <select name="animals" id="animals">
+        <option value="5555">Both</option>
+        <option value="5555">Cats</option>
+        <option value="5555">Dogs</option>
+    </select>
     <button>Click</button>
     `
     rootElement.insertAdjacentHTML("beforeend", htmlBody);
+
+    const form = rootElement.querySelector("form")
 
     //input eseményfigyelő
     const inputList = document.querySelectorAll("input"); 
@@ -37,28 +44,18 @@ function loadEvent() {
             console.log(event.target.value);
         })
     })
+
+    form.querySelector("select").addEventListener("input", function (e) {
+
+        console.log(e.target.value);
+    })
+
+    form.addEventListener("submit", function(e){
+        e.preventDefault()
+        console.log(e.target);
+    })
 }
 
 window.addEventListener("load", loadEvent);
 
-/*function selectFirstName() {
-
-    let firstName = document.getElementById("fname");
-
-    console.log(firstName.value);
-}
-
-function selectLastName() {
-
-    let lastName = document.getElementById("lname");
-
-    console.log(lastName.value);
-}
-
-function selectAge() {
-
-    let age = document.getElementById("age");
-
-    console.log(age.value);
-}*/
 
