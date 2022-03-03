@@ -1,39 +1,50 @@
+function loadEvent() {
 
-function inIt(mathFunction) { //paraméterek mindig function scopeok
-    var a = 5;
-    var b = 6;
+    let rootElement = document.getElementById("root");
 
-    
-    if (a < b){
-        let c = mathFunction(b, a)
-        console.log(c);
-       /*  (function() {
-            var c = b - a;
-            console.log(c);
-        })();   */
-    }else{
-        let c = mathFunction(a, b)
-        console.log(c);
-    /*     (function (){
-            var c = a - b;
-        })(); */
-    };
+    let htmlBody = `
+    <form>
+        <label for="fname">First name:</label><br>
+            <input type="text" id="fname" name="firstname" value=""><br>
+        <label for="lname">Last name:</label><br>
+            <input type="text" id="lname" name="lastname" value=""><br>
+        <label for="age">Age:</label><br>
+            <input type="text" id="age" name="age" value=""><br>
+    </form><br>
+    <button>Click</button>
+    `
+    rootElement.insertAdjacentHTML("beforeend", htmlBody);
 
-    //console.log(c);
-    //console.log(c);
-    //a c látszódik az if után
+    //input eseményfigyelő
+    const inputList = document.querySelectorAll("input"); 
+
+    for (const input of inputList) {
+        input.addEventListener("input", function (event) {
+            console.log(event.target.value);
+        })
+    }
 }
 
-const inItC = (firstNumber, secondNumber) => {
-    return firstNumber - secondNumber;
+window.addEventListener("load", loadEvent);
+
+/*function selectFirstName() {
+
+    let firstName = document.getElementById("fname");
+
+    console.log(firstName.value);
 }
 
-const inItD = (firstNumber, secondNumber) => {
-    return firstNumber * secondNumber;
+function selectLastName() {
+
+    let lastName = document.getElementById("lname");
+
+    console.log(lastName.value);
 }
 
-inIt(inItD);
+function selectAge() {
 
-//készítsétek el a szokásos load eseményt új brachbe events néven és csináljatok egy formot, és a formban legyen 3 input mező, be is lehet css elni szöveges input mezők legyenek, egy gomb legyen benne és az input mezőkre mindegyikre input eseményt tegyetek rá, mindegyik inputon legyen input esemény, clgolja ki az értékét az input mezőnek, js ből adjuk hozzá a root id divhez a formot , clg az input eseményre az input mezők értékét
-//15.50
+    let age = document.getElementById("age");
+
+    console.log(age.value);
+}*/
 
