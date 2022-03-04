@@ -60,9 +60,9 @@ async function loadEvent() {
     
     const apod = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${nasaApiKey}&date=${requestedDate}`)
 
-    //console.log(apod);
+    //console.log(apod); 
 
-    const apodJson = await apod.json();
+    const apodJson = await apod.json(); //ezzel konvertálom, bontom ki
 
     //console.log(apodJson.explanation);
 
