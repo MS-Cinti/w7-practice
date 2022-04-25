@@ -35,25 +35,60 @@ async function loadEvent() {
     }
     */
 
-    Array.from(inputList).map(function(input){
+    /* Array.from(inputList).map(function(input){
         input.addEventListener("input", function(e) {
             console.log(e.target.value);
         })
-    })
+    }) */
 
+    Array.from(inputList).map(input => {
+        input.addEventListener("input", e => {
+            console.log(e.target.value);
+            //e.target = pl: <input name="input1" id="input1" type="text" />
+            //e.target.value = amit beleírunk az e.target-be
+        })
+    })
     
     //select esemény 
-    form.querySelector("select").addEventListener("input", function(e){
+    /* form.querySelector("select").addEventListener("input", function(e){
         console.log(e.target.value);
+    }) */
+
+    //form a sor elején: már elmentettük egy változóba
+    form.querySelector("select").addEventListener("input", e => {
+        console.log(e.target.value); //e.target.value = pl: value="both5555"
+        /* e.target = pl:   
+        <select name="animals" id="animals">
+            <option value="both5555">Both</option>
+            <option value="cats5555">Cats</option>
+            <option value="dogs5555">Dogs</option>
+        </select> */
     })
 
 
     //sumbit esemény
-    form.addEventListener("submit", function(e){               //form a sor elején: már elmentettük egy változóba
+    /* form.addEventListener("submit", function(e){               
         e.preventDefault()
         console.log(e.target);
+    }) */
+    
+    form.addEventListener("submit", e => {               
+        e.preventDefault()
+        console.log(e.target);  /*ez az:
+            <form>
+                <input name="input1" id="input1" type="text" />
+                <input name="input2" id="input2" type="text" />
+                <input name="input3" id="input3" type="text" />
+                <select name="animals" id="animals">
+                    <option value="both5555">Both</option>
+                    <option value="cats5555">Cats</option>
+                    <option value="dogs5555">Dogs</option>
+                </select>
+                <button>Send</button>
+            </form>
+        */ 
     })
-
+    //egyikféle fetch:
     const nasaApiKey = "miqERbSb62hxqg4SbPUozPDc1WtXjrIhv6V0NPfz"
 
     const requestedDate = "2022-02-22"
@@ -66,7 +101,8 @@ async function loadEvent() {
 
     //console.log(apodJson.explanation);
 
-    fetch(`https://api.nasa.gov/planetary/apod?api_key=${nasaApiKey}&date=${requestedDate}`).then(
+    //másikféle fetch:
+    /* fetch(`https://api.nasa.gov/planetary/apod?api_key=${nasaApiKey}&date=${requestedDate}`).then(
         function (apodResponse){
             console.log(apodResponse);
             apodResponse.json().then(
@@ -75,6 +111,18 @@ async function loadEvent() {
                 }
             )
         }
+    ) */
+
+    //arrow functionként:
+    fetch(`https://api.nasa.gov/planetary/apod?api_key=${nasaApiKey}&date=${requestedDate}`)
+    .then(apodResponse => {
+        console.log(apodResponse);
+    apodResponse.json()
+    .then(apodResponseJson => {
+        console.log(apodResponseJson.explanation);
+    }
+    )
+    }
     )
 
 }
