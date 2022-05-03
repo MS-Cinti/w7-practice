@@ -16,7 +16,7 @@
 }
 
 #root header button *{
-    pointer-events: none;
+    pointer-events: none; /* ezzel vagy a currentTargettel lehet js-en belül ezt megoldani, ha bárhova kattintok a gombon, úgy is jó lesz*/
 }
 
 #root header button svg rect{

@@ -45,30 +45,32 @@ const loadEvent = async _ => {
 //Get data:
     const countryRes = await fetch("https://restcountries.com/v3.1/all"); 
     //await: aszinkron művelet, megvárjuk a letöltődést, a fgv nevénél is jelezni kell az alávonás előtt
-    const countryArr = await countryRes.json();
+    const countryArr = await countryRes.json(); //itt dolgozzuk fel, json-ná formázzuk
     //console.log(countryArr[0]);
 
 //Process data:
     //map()-nek callback fgv kell
-    let countries = countryArr.map(function(country) {
+    let countries = countryArr.map(country => {
         return new Country(country.name.common, country.cca3, country.population, country.flags.svg, country.continents[0]);
     })
     console.log(countries);
 
+    //itt építem fel a kártyákat:
     let cards = ""
-
-    for (const country of countries){
+    countries.map(country => {
         cards += countryCard(country.name, country.short, country.population, country.flag, country.continent)
-    }
+    })
 
-    const root = document.getElementById("root");
+    const rootElement = document.getElementById("root");
     
-    root.insertAdjacentHTML(`beforeend`,header("Countries",menuButton))
-    root.insertAdjacentHTML(`beforeend`,cards)
+    //beemelem a html-be a componenteket:
+    rootElement.insertAdjacentHTML(`beforeend`, header("Countries", menuButton))
+    rootElement.insertAdjacentHTML(`beforeend`, cards)
 
     const gotMenuButton = document.getElementById("menuButton");
     gotMenuButton.addEventListener("click", (event) => {
         event.target.classList.toggle("clicked");
+        //currentTarget-tel vagy css-ben pointer event-tel tudom megoldani, hogy mindenhol kattintható legyen a gomb
     });
 }
 
